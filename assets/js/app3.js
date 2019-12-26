@@ -129,44 +129,64 @@ function renderTextY(textGroup, newYScale, chosenYAxis) {
 //   }
 
 // function used for updating circles group with new tooltip
-function updateToolTip(chosenXAxis, chosenYAxis,circlesGroup) {
+function updateToolTip(chosenXAxis, circlesGroup) {
 
     if (chosenXAxis === "poverty") {
-        var Xlabel = "Poverty: ";
+        var Xlabel = "Poverty:";
     }
     else if (chosenXAxis === "age") {
-        var Xlabel = "Median Age: ";
+        var Xlabel = "Age:";
     }
     else if (chosenXAxis === "income"){
-        var Xlabel = "Median Income: $";
+        var Xlabel = "Income:";
     }
 
     if (chosenYAxis === "obesity") {
-        var Ylabel = "Obesity: ";
+        var Ylabel = "Obesity:";
     }
     else if (chosenYAxis === "smokes") {
-        var Ylabel = "Smokes: ";
+        var Ylabel = "Age:";
     }
     else if (chosenYAxis === "healthcare"){
-        var Ylabel = "Lacks Healthcare: ";
+        var Ylabel = "Healthcare:";
     }   
 
-    var toolTip = d3.tip()   
-        .attr("class", "d3-tip")               
-        .offset([80,-60])
-        .html(function(d) {
-            return (`${d.state}<br><center>${Xlabel}${d[chosenXAxis]}<br>${Ylabel}${d[chosenYAxis]}%</center>`)
-        });
+    // var toolTip = d3.tip()
+    //     .attr("class", ".d3-tip")
+    //     .offset([0, 0])
+    //     .html(function(d) {
+    //         return (`<center>${Xlabel} ${d[chosenXAxis]}<br>${Ylabel} ${d[chosenYAxis]}</center>`);
+    // });
 
-    circlesGroup.call(toolTip);
+    // circlesGroup.call(toolTip);
 
-    circlesGroup.on("mouseover", function(d) { 
-            toolTip.show(d, this);     
-   
-          })                  
-          .on("mouseout", function(d, index) {       
-            toolTip.hide(d);   
-          });
+    // circlesGroup.on("mouseover", function(data) {
+    //     toolTip.show(data);
+    // })
+    //     // onmouseout event
+    //     .on("mouseout", function(data, index) {
+    //         toolTip.hide(data);
+    //     });
+
+    // var toolTip = d3.select("#svg").append("div")   
+    //     .attr("class", "#d3-tip")               
+    //     .style("opacity", 0)
+    //     .html(function(d) {
+    //         return (`<center>${Xlabel} ${d[chosenXAxis]}<br>${Ylabel} ${d[chosenYAxis]}</center>`)
+    //     })
+
+    // circlesGroup.call(toolTip);
+
+    // circlesGroup.on("mouseover", function(d) { 
+    //         toolTip.show(d);     
+    //         toolTip.transition().duration(200).style("opacity", .9); 
+    //         toolTip.html(d)  
+    //           .style("left", (parseInt(d3.select(this).attr("cx")) + document.getElementById("svg").offsetLeft) + "px")     
+    //           .style("top", (parseInt(d3.select(this).attr("cy")) + document.getElementById("svg").offsetTop) + "px");    
+    //       })                  
+    //       .on("mouseout", function(d) {       
+    //         toolTip.transition().duration(500).style("opacity", 0);   
+    //       });
 
     return circlesGroup;
 };
@@ -179,8 +199,7 @@ d3.csv("/assets/data/data.csv").then(function(censusData) {
         data.obesity = +data.obesity;
         data.smokes = +data.smokes;
         data.healthcare = +data.healthcare;
-        abbrev = data.abbr
-        state = data.state;
+        abbrev = data.abbr;
 
     console.log(censusData)        
     });
@@ -307,7 +326,7 @@ d3.csv("/assets/data/data.csv").then(function(censusData) {
     //     .text("Obesity");
 
     // updateToolTip function above csv import
-    var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+    var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
     // x axis labels event listener
     XlabelsGroup.selectAll("text")
@@ -334,7 +353,7 @@ d3.csv("/assets/data/data.csv").then(function(censusData) {
       textGroup = renderText(textGroup, xLinearScale, chosenXAxis, chosenYAxis, yLinearScale);
 
       // updates tooltips with new info
-      circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+      circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
 
       // changes classes to change bold text
@@ -399,7 +418,7 @@ d3.csv("/assets/data/data.csv").then(function(censusData) {
       textGroup = renderTextY(textGroup, yLinearScale, chosenYAxis, xLinearScale, chosenXAxis);
 
       // updates tooltips with new info
-      circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+      circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
 
 
       // changes classes to change bold text
