@@ -1,7 +1,7 @@
 // @TODO: YOUR CODE HERE!
 // Define SVG area dimensions
-var svgWidth = 960;
-var svgHeight =560;
+var svgWidth =960;
+var svgHeight =500;
 
 // Define the chart's margins as an object
 var chartMargin = {
@@ -155,7 +155,7 @@ function updateToolTip(chosenXAxis, chosenYAxis,circlesGroup) {
         .attr("class", "d3-tip")               
         .offset([80,-60])
         .html(function(d) {
-            return (`${d.state}<br><center>${Xlabel}${d[chosenXAxis]}<br>${Ylabel}${d[chosenYAxis]}%</center>`)
+            return (`<center><b><u>${d.state}</u></b><br>${Xlabel}${d[chosenXAxis]}<br>${Ylabel}${d[chosenYAxis]}%</center>`)
         });
 
     circlesGroup.call(toolTip);
@@ -217,7 +217,7 @@ d3.csv("/assets/data/data.csv").then(function(censusData) {
         .append("circle")
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
-        .attr("r", 12)
+        .attr("r", "15")
         .attr("fill", "red")
         .attr("opacity",".55")
         .attr("stroke","black")
@@ -232,7 +232,7 @@ d3.csv("/assets/data/data.csv").then(function(censusData) {
         .attr("text-anchor","middle")
         .attr("alignment-baseline","middle")
         .attr("font-family", "cursive")
-        .attr("font-size", "12px")
+        .attr("font-size", "10px")
         .text(function (d) {return(d.abbr)})
         .style("stroke","white")
         //.style("stroke-width",".5px")
@@ -297,14 +297,7 @@ d3.csv("/assets/data/data.csv").then(function(censusData) {
         .classed("inactive", true)
         .text("Lacks healthcare (%)");        
     
-    // append y axis
-    // chartGroup.append("text")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("y", 0 - chartMargin.left)
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("dy", "1em")
-    //     .classed("axis-text", true)
-    //     .text("Obesity");
+
 
     // updateToolTip function above csv import
     var circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
